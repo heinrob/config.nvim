@@ -30,21 +30,6 @@ require('lazy').setup({
   -- NOTE: Plugins can be added via a link or github org/name. To run setup automatically, use `opts = {}`
   { 'NMAC427/guess-indent.nvim', opts = {} },
 
-  -- Alternatively, use `config = function() ... end` for full control over the configuration.
-  -- If you prefer to call `setup` explicitly, use:
-  --    {
-  --        'lewis6991/gitsigns.nvim',
-  --        config = function()
-  --            require('gitsigns').setup({
-  --                -- Your gitsigns configuration here
-  --            })
-  --        end,
-  --    }
-  --
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`.
-  --
-  -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     ---@module 'gitsigns'
@@ -58,6 +43,39 @@ require('lazy').setup({
         topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
         changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
       },
+      current_line_blame = true,
+      on_attach = function(bufnr)
+        local gitsigns = require 'gitsigns'
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gitsigns.nav_hunk 'next'
+          end
+        end)
+        map('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gitsigns.nav_hunk 'prev'
+          end
+        end)
+        -- Actions
+        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[S]tage' })
+        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[R]eset' })
+        map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = '[S]tage' })
+        map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = '[R]eset' })
+        map('n', '<leader>hp', gitsigns.preview_hunk_inline, { desc = '[P]review' })
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Git [B]lame' })
+        -- Text object
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk, { desc = 'inner [H]unk' })
+      end,
     },
   },
 

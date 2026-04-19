@@ -20,3 +20,9 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     if mark[1] > 0 and mark[1] <= lcount then pcall(vim.api.nvim_win_set_cursor, 0, mark) end
   end,
 })
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+  desc = 'Switch between relative and absolute line numbers between modes',
+  group = vim.api.nvim_create_augroup('my-rel-nu', { clear = true }),
+  callback = function(mode) vim.o.relativenumber = string.match(mode.match, '.*:i.*') == nil end,
+})

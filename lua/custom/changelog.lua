@@ -54,6 +54,15 @@ function M.create()
     vim.notify('changelog: could not determine branch name', vim.log.levels.ERROR)
     return
   end
+  if branch == 'master' or branch == 'main' then
+    vim.notify('chngelog: currently on branch ' .. branch, vim.log.levels.WARN)
+    vim.ui.input({ prompt = 'Change to new branch: ' }, function(text)
+      if text == nil or text == '' then return end
+      branch = text:gsub('%s', '-')
+      vim.fn.system { 'git', '-C', cwd, 'checkout', '-b', branch }
+      if vim.v.shell_error ~= 0 then vim.notify('changelog: could not change branch', vim.log.levels.ERROR) end
+    end)
+  end
 
   local filename = branch:gsub('/', '-') .. '.yml'
   local dir = git_root .. '/changelogs/unreleased'

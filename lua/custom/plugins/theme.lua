@@ -9,5 +9,14 @@
 -- require('flexoki').setup {}
 -- vim.cmd.colorscheme 'flexoki-dark'
 
-require('cyberdream').setup {}
-vim.cmd.colorscheme 'cyberdream'
+require('material').setup {
+  plugins = {
+    'fidget',
+    'gitsigns',
+    'mini',
+    'nvim-web-devicons',
+    'telescope',
+    'which-key',
+  },
+}
+vim.cmd.colorscheme 'material-deep-ocean'

@@ -35,7 +35,8 @@ vim.pack.add({
   -- THEMES
   -- gh 'folke/tokyonight.nvim',
   -- { src = gh 'kepano/flexoki-neovim', name = 'flexoki' },
-  gh 'scottmckendry/cyberdream.nvim',
+  -- gh 'scottmckendry/cyberdream.nvim',
+  gh 'marko-cerovac/material.nvim',
 
   gh 'NMAC427/guess-indent.nvim',
   gh 'folke/which-key.nvim',

@@ -69,9 +69,9 @@ fork to your machine using one of the commands below, depending on your OS.
 > Your fork's URL will be something like this:
 > `https://github.com/<your_github_username>/kickstart.nvim.git`
 
-You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
-too - it's ignored in the kickstart repo to make maintenance easier, but it's
-[recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
+This fork uses Neovim's native `vim.pack` plugin manager. Track
+`nvim-pack-lock.json` in version control if you want reproducible plugin
+revisions across machines.
 
 #### Clone kickstart.nvim
 
@@ -111,8 +111,8 @@ Start Neovim
 nvim
 ```
 
-That's it! Lazy will install all the plugins you have. Use `:Lazy` to view
-the current plugin status. Hit `q` to close the window.
+That's it! `vim.pack` will install the configured plugins on first startup.
+Use `:lua vim.pack.update()` to review and apply plugin updates.
 
 #### Read The Friendly Documentation
 
@@ -146,7 +146,8 @@ examples of adding popularly requested plugins.
     `~/.local/share/nvim-kickstart`. You can apply this approach to any Neovim
     distribution that you would like to try out.
 * What if I want to "uninstall" this configuration:
-  * See [lazy.nvim uninstall](https://lazy.folke.io/usage#-uninstalling) information
+  * Remove this config directory and the matching Neovim data directory. Native
+    `vim.pack` plugins live under `site/pack/core/opt` inside that data directory.
 * Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
   * The main purpose of kickstart is to serve as a teaching tool and a reference
     configuration that someone can easily use to `git clone` as a basis for their own.

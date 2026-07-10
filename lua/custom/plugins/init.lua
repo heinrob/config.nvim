@@ -32,7 +32,11 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 vim.pack.add({
-  gh 'folke/tokyonight.nvim',
+  -- THEMES
+  -- gh 'folke/tokyonight.nvim',
+  -- { src = gh 'kepano/flexoki-neovim', name = 'flexoki' },
+  gh 'scottmckendry/cyberdream.nvim',
+
   gh 'NMAC427/guess-indent.nvim',
   gh 'folke/which-key.nvim',
 

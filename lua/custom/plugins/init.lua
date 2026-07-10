@@ -1,6 +1,4 @@
-local gh = function(repo)
-  return 'https://github.com/' .. repo
-end
+local gh = function(repo) return 'https://github.com/' .. repo end
 
 local function run_build(plugin, cmd, cwd)
   local result = vim.system(cmd, { cwd = cwd, text = true }):wait()
@@ -65,16 +63,17 @@ vim.pack.add({
   gh 'stevearc/oil.nvim',
 }, { confirm = false })
 
-require('custom.plugins.theme')
+require 'custom.plugins.theme'
+require 'custom.plugins.fidget'
 require('guess-indent').setup {}
-require('custom.plugins.which-key')
-require('custom.plugins.telescope')
-require('custom.plugins.treesitter')
-require('custom.plugins.mini')
-require('custom.plugins.conform')
-require('custom.plugins.gitsigns')
-require('custom.plugins.lsp')
-require('custom.plugins.blink')
-require('custom.plugins.todo-comments')
-require('custom.plugins.markdown')
-require('custom.plugins.oil')
+require 'custom.plugins.which-key'
+require 'custom.plugins.telescope'
+require 'custom.plugins.treesitter'
+require 'custom.plugins.mini'
+require 'custom.plugins.conform'
+require 'custom.plugins.gitsigns'
+require 'custom.plugins.lsp'
+require 'custom.plugins.blink'
+require 'custom.plugins.todo-comments'
+require 'custom.plugins.markdown'
+require 'custom.plugins.oil'

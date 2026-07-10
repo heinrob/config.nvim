@@ -24,7 +24,7 @@ local function run_wizard(filepath, closes)
   vim.ui.input({ prompt = 'Changelog text: ' }, function(text)
     if text == nil or text == '' then return end
 
-    vim.ui.select({ 'users', 'teachers', 'admin', 'technical' }, { prompt = 'Audience' }, function(audience)
+    vim.ui.select({ 'users', 'teachers', 'admins', 'technical' }, { prompt = 'Audience' }, function(audience)
       if audience == nil then return end
 
       vim.ui.select({ 'added', 'fixed', 'changed', 'deprecated', 'removed', 'other' }, { prompt = 'Type' }, function(change_type)

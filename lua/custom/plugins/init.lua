@@ -45,7 +45,6 @@ vim.pack.add({
   gh 'nvim-telescope/telescope.nvim',
   gh 'nvim-telescope/telescope-fzf-native.nvim',
   gh 'nvim-telescope/telescope-ui-select.nvim',
-  gh 'nvim-tree/nvim-web-devicons',
 
   { src = gh 'nvim-treesitter/nvim-treesitter', version = 'main' },
   gh 'nvim-mini/mini.nvim',
@@ -64,10 +63,10 @@ vim.pack.add({
 
   gh 'folke/todo-comments.nvim',
   gh 'MeanderingProgrammer/render-markdown.nvim',
-  gh 'nvim-mini/mini.icons',
   gh 'stevearc/oil.nvim',
 }, { confirm = false })
 
+require 'custom.plugins.icons'
 require 'custom.plugins.theme'
 require 'custom.plugins.fidget'
 require('guess-indent').setup {}

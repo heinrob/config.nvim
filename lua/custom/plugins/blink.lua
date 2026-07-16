@@ -12,6 +12,28 @@ require('blink.cmp').setup {
 
   completion = {
     documentation = { auto_show = false, auto_show_delay_ms = 500 },
+    menu = {
+      draw = {
+        components = {
+          kind_icon = {
+            text = function(ctx)
+              local icon = require('mini.icons').get('lsp', ctx.kind)
+              return icon
+            end,
+            highlight = function(ctx)
+              local _, hl = require('mini.icons').get('lsp', ctx.kind)
+              return hl
+            end,
+          },
+          kind = {
+            highlight = function(ctx)
+              local _, hl = require('mini.icons').get('lsp', ctx.kind)
+              return hl
+            end,
+          },
+        },
+      },
+    },
   },
 
   sources = {

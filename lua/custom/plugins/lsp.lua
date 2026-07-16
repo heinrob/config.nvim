@@ -72,93 +72,16 @@ local vue_plugin = {
 --  See `:help lsp-config` for information about keys and how to configure
 ---@type table<string, vim.lsp.Config>
 local servers = {
-  intelephense = {
-    settings = {
-      intelephense = {
-        environment = {
-          phpVersion = '8.2',
-        },
-        stubs = {
-          'apache',
-          'bcmath',
-          'bz2',
-          'calendar',
-          'com_dotnet',
-          'Core',
-          'ctype',
-          'curl',
-          'date',
-          'dba',
-          'dom',
-          'enchant',
-          'exif',
-          'FFI',
-          'fileinfo',
-          'filter',
-          'fpm',
-          'ftp',
-          'gd',
-          'gettext',
-          'gmp',
-          'hash',
-          'iconv',
-          'imap',
-          'intl',
-          'json',
-          'ldap',
-          'libxml',
-          'mbstring',
-          'meta',
-          'mysqli',
-          'oci8',
-          'odbc',
-          'openssl',
-          'pcntl',
-          'pcre',
-          'PDO',
-          'pdo_ibm',
-          'pdo_mysql',
-          'pdo_pgsql',
-          'pdo_sqlite',
-          'pgsql',
-          'Phar',
-          'posix',
-          'pspell',
-          'readline',
-          'Reflection',
-          'session',
-          'shmop',
-          'SimpleXML',
-          'snmp',
-          'soap',
-          'sockets',
-          'sodium',
-          'SPL',
-          'sqlite3',
-          'standard',
-          'superglobals',
-          'sysvmsg',
-          'sysvsem',
-          'sysvshm',
-          'tidy',
-          'tokenizer',
-          'xml',
-          'xmlreader',
-          'xmlrpc',
-          'xmlwriter',
-          'xsl',
-          'Zend OPcache',
-          'zip',
-          'zlib',
-        },
-      },
-    },
+  phpantom_lsp = {
+    cmd = { 'phpantom_lsp' },
+    filetypes = { 'php' },
+    root_markers = { '.phpantom-root', { 'composer.json', '.git' } },
+    -- the following is a workaround for a bug in diagnostics in phpantom_lsp.
+    on_attach = function(client, bufnr)
+      local namespace = vim.lsp.diagnostic.get_namespace(client.id)
+      vim.diagnostic.enable(false, { ns_id = namespace, bufnr = bufnr })
+    end,
   },
-  -- phpantom_lsp = {
-  --   cmd = { 'phpantom_lsp' },
-  --   filetypes = { 'php' },
-  --   root_markers = { 'vendor', { 'composer.json', '.git' } },
-  -- },
   -- clangd = {},
   -- gopls = {},
   pyright = {},
@@ -227,5 +150,3 @@ for name, server in pairs(servers) do
   vim.lsp.config(name, server)
   vim.lsp.enable(name)
 end
-
--- vim.lsp.config.phpantom.setup {}

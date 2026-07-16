@@ -14,13 +14,35 @@ vim.diagnostic.config {
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
 
   -- Can switch between these as you prefer
-  virtual_text = false, -- Text shows up at the end of the line
-  virtual_lines = true, -- Text shows up underneath the line, with virtual lines
+  virtual_text = true, -- Text shows up at the end of the line
+  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
   jump = { float = true },
 }
 
+local isLspDiagnosticsVisible = true
+local function toggle_lsp_diagnostics_visible(force)
+  if force == 'off' then
+    isLspDiagnosticsVisible = false
+  elseif force == 'on' then
+    isLspDiagnosticsVisible = true
+  else
+    isLspDiagnosticsVisible = not isLspDiagnosticsVisible
+  end
+  vim.diagnostic.config {
+    virtual_text = isLspDiagnosticsVisible,
+    -- virtual_lines = isLspDiagnosticsVisible,
+    underline = isLspDiagnosticsVisible,
+  }
+  return isLspDiagnosticsVisible
+end
+vim.keymap.set(
+  'n',
+  '<leader>tl',
+  function() vim.notify('Toggled diagnostics ' .. (toggle_lsp_diagnostics_visible() and 'on' or 'off')) end,
+  { desc = 'Toggle [L]sp Diagnostics' }
+)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('n', '<leader>yp', '<cmd>let @+ = expand("%")<CR>', { desc = '[Y]ank [p]ath (relative)' })
 vim.keymap.set('n', '<leader>yP', '<cmd>let @+ = expand("%:p")<CR>', { desc = '[Y]ank [P]ath (absolute)' })

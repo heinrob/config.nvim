@@ -64,6 +64,8 @@ vim.pack.add({
   gh 'folke/todo-comments.nvim',
   gh 'MeanderingProgrammer/render-markdown.nvim',
   gh 'stevearc/oil.nvim',
+
+  'https://codeberg.org/mfussenegger/nvim-lint.git',
 }, { confirm = false })
 
 require 'custom.plugins.icons'
@@ -81,3 +83,4 @@ require 'custom.plugins.blink'
 require 'custom.plugins.todo-comments'
 require 'custom.plugins.markdown'
 require 'custom.plugins.oil'
+require 'custom.plugins.lint'

@@ -76,10 +76,12 @@ local servers = {
     cmd = { 'phpantom_lsp' },
     filetypes = { 'php' },
     root_markers = { '.phpantom-root', { 'composer.json', '.git' } },
-    -- the following is a workaround for a bug in diagnostics in phpantom_lsp.
-    on_attach = function(client, bufnr)
-      local namespace = vim.lsp.diagnostic.get_namespace(client.id)
-      vim.diagnostic.enable(false, { ns_id = namespace, bufnr = bufnr })
+    -- Keep phpantom's language features, but use nvim-lint for diagnostics.
+    handlers = {
+      ['textDocument/publishDiagnostics'] = function() end,
+    },
+    on_init = function(client)
+      client.server_capabilities.diagnosticProvider = nil
     end,
   },
   -- clangd = {},

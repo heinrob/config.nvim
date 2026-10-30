@@ -4,6 +4,8 @@ require('luasnip.loaders.from_vscode').lazy_load()
 require('blink.cmp').setup {
   keymap = {
     preset = 'default',
+    ['<Up>'] = false,
+    ['<Down>'] = false,
   },
 
   appearance = {
